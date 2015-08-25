@@ -1,0 +1,98 @@
+	html{height:100%;}
+	body{margin:0;padding:0;height:100%;font-family:Lucida Console; color:#eaeaeb ; font-size:2.2vmin }
+	.mainDiv{height:100%;box-sizing: border-box; }
+	
+	
+	/***************************************************************HEADER STYLES*******************************************************************/
+	header {background: #31353d; display:block; height:18%;box-sizing: border-box; }
+	nav{ z-index:10; display:block; height:8%; width:80%;position:absolute;left:10%;top:16.4%;box-sizing: border-box;}
+	nav div.upperBorder{background: #f15f43; height:20%;box-sizing: border-box; }
+	
+	nav div.menuItems{background: #eaeaeb; height:80%;box-sizing: border-box; width:100% }
+	nav div.menuItems>ul{list-style-type:none;padding:0;margin:0;height:100%;width:100%}
+	nav div.menuItems>ul li{display:inline; color:#31353d; padding:0;margin:0;height:100%;border-right: 1px solid #d5d5d6;float:left;width: 19.5%;}
+	nav div.menuItems>ul li:last-child{border:none;}
+	nav div.menuItems>ul li a { color: #31353d;display:block;text-decoration: none; height:73%; text-align: center; text-transform: uppercase;font-weight:bold;padding-top:7%;transition:all 1s ease 0s}
+	nav div.menuItems>ul li a:hover{background: #f15f43; color:#eaeaeb; box-shadow:1px 1px #c53317}
+	
+	header span:last-child{float:right;position:relative;top:20%; height:30%; width:27%}
+	header #logoSpan{position: relative;}
+	header #logoSpan img{height:87%; width:23%;}
+	input#searchBar{/*background: rgba(0, 0, 0, 0) url("images/searchIcon2.png") no-repeat scroll right top / 25% 100%;*/ 
+					background: #3f424a;border: 2px solid #5b5e66;box-shadow: none;box-sizing: border-box;color: white;display: inline-block;height:100%;font-weight:bold; position:absolute;width:88%; border-right:none;transition: all 500ms linear 0s;}
+	input#searchBar:focus {background-color:#dfd3a0; color:#31353d;font-weight:bold;text-transform:uppercase;}
+	input#searchBar:focus +	#searchImg img {background:#dfd3a0;}
+	#searchImg{display:inline-block;position:absolute;right:0; height:100%; width:14%;z-index:5;transition: all 1s ease 0s;}
+	#searchImg img {height:100%; width:100%; box-sizing: border-box; border: 2px solid #5b5e66; border-left:none;transition: all 500ms linear 0s;}
+	#searchImg:hover{ transform: rotateX(360deg); background:#dfd3a0}
+	
+	
+	/***************************************************************BODY STYLES*********************************************************************/
+	section.mainContent{background:#fff3c0; display:block; min-height:67%;padding:7% 10% 0% 10%;box-sizing: border-box; color: #31353d }
+	#searchResultDiv{height:100%}
+	#searchResultDiv>span {display:inline-block;margin: 15px 0 0 20px; position:relative;}
+	#searchResultDiv>span>img { width: 78px; height:75px;border: 2px solid gray;border-radius:5px;box-shadow: 4px 4px 4px #353535; cursor:pointer;}
+	#searchResultDiv>span>img:hover + span { visibility:visible;}
+	#searchResultDiv>span>span{border:1px solid black;position:absolute;background-color:#eaeaeb;color:#31353d;z-index:10;font-weight:bold;border-radius:3px;top:81px;left:0px;font-size:11px;visibility:hidden;transition:visibility 100ms ease-out 0s}
+	
+	.overlay { position:fixed; background-color: rgba(0, 0, 0, 0.3); top: 0;left: 0;bottom: 0; right: 0;z-index:21;}
+	#overlayDiv{background:#eaeaeb ;border: 3px solid #a1a1a1; border-radius: 5px; height: 77%; left: 15%; position: fixed;
+				top: 12%; width: 71%; z-index: 22;}
+	#overlayDiv #closeIcon{ height: 35px; position: absolute; right: 0; top: 0; width: 38px;cursor:pointer;z-index:3}
+	#overlayDiv #closeIcon:hover + div{display:block}
+	#overlayDiv #closeIconSpan{display:none;background-color: #f15f43; border-radius: 35px; height: 26px; position: absolute; right: 5px; top: 3px; width: 28px; z-index: 1;}
+	#movieDetails{height:100%;position:relative;}
+	#movieTitle{font-size: 20px; font-weight: bold; text-align: center;}
+	#movieTitle>span{font-size:x-small}
+	#movieImg{height: 62%; left: 24%;position: absolute;top: 14%; width: 50%;}
+	#movieImg>img{height:100%;width:100%;border-radius: 5px;}
+	#movieInfo{ position: absolute; text-align: center; top: 85%;font-weight:bold;height:15%;overflow:auto;}
+	#movieLeftSideContent {display: inline-block;font-weight: bold;left: 1%;max-width: 23%; position: absolute;top:20%}
+	#movieRightSideContent {display: inline-block;font-weight: bold;right: 1%;max-width: 23%; position: absolute;top:20%}
+	#movieRightSideContent img{width:40px;height:45px;}
+	
+	/***************************************************************Caraousel STYLES*******************************************************************/
+	
+	.caraouselInnerContainer{position: relative;width: -moz-min-content;left: 10%;}
+	.carouselImages{position: relative;overflow: hidden; width: 800px; height: 360px;border: 5px solid #a1a1a1;border-radius:5px;border-image:url(images/movieReel.png) 30 round;border-right:none;border-left:none;}
+	.left, .right, .centered {display: block;width: 100%; height: 100%;background: silver;position: absolute;  top: 0; left: 0px; transition: left 0.5s;}
+	.left { left: -800px;}
+	.right {  left: 800px;}
+	.dots {bottom: 6%;left: 22%;position: absolute; width: 70%;}
+	.dots span { background: #9c9c9c none repeat scroll 0 0; border: 1px solid black; border-radius: 6px;display: inline-block;height: 8px; margin-left: 2.5%; width: 8px;}
+	.dots .selected { background: #7FFFD4  none repeat scroll 0 0; }
+	.leftSlider,.rightSlider{width:40px;height:40px;cursor:pointer;position: absolute;z-index:10; top: 47%;opacity: 0.65;}
+	.leftSlider:hover,.rightSlider:hover{opacity:1;}
+	.leftSlider{left:1.5%;}
+	.rightSlider{right:1.5%;}
+	/***************************************************************FOOTER STYLES*******************************************************************/
+	footer{background: #31353d ; display:block; height:15%; box-sizing: border-box;position: relative; }
+	footer #logoSpan{box-sizing: border-box; display: inline-block; height: 70%; position: relative; width: 18%; z-index: 10;}
+	footer #logoSpan img{height:100%; width:100%; position:absolute}
+	
+	#footerList{box-sizing: border-box; display: inline-block; height: 43%; position: relative; width: 52%;}
+	#footerList> ul{list-style-type:none;padding:0;margin:0;height:100%;width:100%;position: absolute;}
+	#footerList> ul li{display:inline; padding-left:7%;margin:0;height:100%;float:left;}
+	#footerList> ul li a{ display:block;text-decoration: none; text-align: center; text-transform: uppercase;font-weight:bold;color:#5b5e66; transition: all 700ms ease 0s}
+	#footerList> ul li a:hover{color:#f15f43}
+	
+	#socialIcons{box-sizing: border-box; display: inline-block; height: 70%; position: absolute; width: 30%; z-index: 10;right:0}
+	#socialIcons> ul{list-style-type:none;padding:0;margin:0;height:100%;width:100%;position: absolute;}
+	#socialIcons> ul li{display:inline; padding-left:0%;margin:0;height:100%;float:left; width: 25%}
+	#socialIcons> ul li:eq(0) {background:url(images/orangeIcons.jpeg) -110px -21px; width: 44px;height: 44px; }
+	#socialIcons> ul li:eq(1) {background:url(images/orangeIcons.jpeg) -201px -21px; width: 44px;height: 44px; }
+	#socialIcons> ul li:eq(2) {background:url(images/orangeIcons.jpeg) -289px -21px; width: 44px;height: 44px; }
+	#socialIcons> ul li:eq(3){background:url(images/orangeIcons.jpeg) -20px  -98px; width: 44px;height: 44px; }
+	
+	/***************************************************************MEDIA QUERRIES******************************************************************/
+	@media screen and (max-width: 650px) {
+		#overlayDiv #closeIcon{ height: 24px; width: 27px;z-index:3}
+		#overlayDiv #closeIcon:hover + div{display:block}
+		#overlayDiv #closeIconSpan{height: 15px;  width: 17px;top: 5px;}
+		#searchResultDiv>span>img { width: 63px; height:60px;border: 1px solid gray;box-shadow: 3px 3px 3px #353535;}
+		#searchResultDiv>span>span{top:66px;}
+		#movieTitle{font-size: 12px;}
+		#movieRightSideContent img{width:25px;height:30px;}
+		#movieLeftSideContent {font-size:10px;}
+		#movieRightSideContent {font-size:10px;}
+	}

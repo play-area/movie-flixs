@@ -1,0 +1,33 @@
+<div id="searchResultDiv" >
+		<span ng-repeat="x in moviesDataModel.results" >
+				<img src={{'http://image.tmdb.org/t/p/w500'+x.poster_path+'?api_key=23afca60ebf72f8d88cdcae2c4f31866'}} ng-click="showMovieDetails(x.id)" />
+				<span href="#"  >{{x.original_title}}</span>
+		</span>
+</div>
+<div class="overlay"ng-show="showDetails" >
+	<div id="overlayDiv">
+		<img src="images/fileclose_transparent.png" id="closeIcon" ng-click="showDetails=false"></img>
+		<div id="closeIconSpan"></div>
+		<div id="movieDetails">
+			
+			<div id="movieTitle">
+				{{movieDetails.original_title}}<br>
+				<span>{{movieDetails.tagline}}<span>			
+			</div>
+			<div id="movieLeftSideContent">
+				Viewer Rating :{{movieDetails.vote_average}}<br><br>
+				Genres :<span ng-repeat="x in movieDetails.genres" >{{x.name}}, </span><br><br>
+				Release Date : {{movieDetails.release_date}}
+			</div>
+			<div id="movieRightSideContent">
+				Movie Cast	: 
+				<div ng-repeat="x in castDetails | limitTo:castLimit">
+					<img src={{'http://image.tmdb.org/t/p/w500'+x.profile_path+'?api_key=23afca60ebf72f8d88cdcae2c4f31866'}} /><br>
+					{{x.name}} as {{x.character}}<br>
+				</div>
+			</div>
+			<div id="movieImg"><img src={{'http://image.tmdb.org/t/p/w500'+movieDetails.backdrop_path+'?api_key=23afca60ebf72f8d88cdcae2c4f31866'}} /></div>
+			<div id="movieInfo">{{movieDetails.overview}}</div>
+		</div>
+	</div>
+</div>

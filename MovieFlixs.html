@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Movie FlixS</title>
+<head>
+	<link rel="stylesheet" type="text/css" href="styles/customCSS1.css">
+</head>
+<body	ng-app="mainApp">
+	
+	<div class="mainDiv"	ng-controller="mainCtrl" >
+		
+		<header	ng-controller="headerCtrl"><header-content></header-content></header>
+		<nav	ng-controller="navCtrl"><nav-upper></nav-upper></nav>
+		<section class="mainContent"	ng-controller="contentCtrl" ><ng-view></ng-view></section>
+		<footer	ng-controller="footerCtrl"><nav-lower></nav-lower></footer>
+		
+	</div>
+	<!-------------------------------------------------------SCRIPT SECTION------------------------------------------------>
+	<script type="text/javascript" src="jscripts/jquery-1.9.1.min.js"></script>
+	<script src="jscripts/angular.js"></script>
+	<script src="jscripts/angular-route.js"></script>
+	<script>
+	var app		=	angular.module("mainApp",['ngRoute']);
+	app.service("movieResultsService", movieResultsService);
+	app.factory("movieConfigFactory", movieConfigFactory);
+	/**
+	* ng-view 
+	* This is the routeProvider service of angular JS defined in config.
+	* This is used to route an URL to a particular HTML Template.
+	*/
+	app.config(['$routeProvider',
+		function($routeProvider) {
+			$routeProvider.
+			when('/homePage', {templateUrl: 'includes/HomePage.html',controller: 'contentCtrl'}).
+			when('/searchResults', {templateUrl: 'includes/SearchResults.html',controller: 'contentCtrl'}).
+			otherwise({redirectTo: '/homePage'});
+	}]);
+	app.controller('carouselCtrl', function ($scope,$http,movieConfigFactory) {
+		//Now Playing Movies http://api.themoviedb.org/3/movie/now_playing
+		$scope.images=[];
+		$scope.getRecentMovies= function(){	
+			console.log("newMoviesCalled in carouselCtrl");
+			$http.get('http://api.themoviedb.org/3/movie/now_playing?api_key='+movieConfigFactory.api_key+'&randm='+Math.random())
+				.success(function(response) {
+					console.log(response);
+					getImages(response.results)
+			});
+		}
+		function getImages(res){
+			$scope.images=[];
+			for(i=0;i<res.length;i++)
+				$scope.images.push('http://image.tmdb.org/t/p/w500'+res[i].poster_path+'?api_key=23afca60ebf72f8d88cdcae2c4f31866');
+		}
+		
+		$scope.imageid = 0;
+		$scope.decrementImgId	=	function(){
+			$scope.imageid = ($scope.images.length + $scope.imageid - 1) % $scope.images.length;
+		}
+		$scope.incrementImgId	=	function(){
+			$scope.imageid = ($scope.imageid + 1) % $scope.images.length;
+		}
+	});
+	app.controller("mainCtrl",function ($scope){
+			});
+				
+	app.controller("headerCtrl",function($scope,$http,movieResultsService,movieConfigFactory){
+		$scope.searchMovie	=	function(keyEvent) {
+			$http.get('https://api.themoviedb.org/3/search/movie?api_key='+movieConfigFactory.api_key+'&randm='+Math.random()+'&query='+$scope.movieSearch+'&page='+1)
+			.success(function(response) {
+				movieResultsService.movieResults	=	{};
+				movieResultsService.movieResults	=	response;	
+				
+			});
+			
+		}
+	});
+		
+	app.controller("navCtrl",function ($scope,$http){
+					
+	});
+	app.controller("contentCtrl",function ($scope,$http,movieResultsService,movieConfigFactory){		
+		$scope.showDetails		=	false;
+		$scope.castLimit		=	3;
+		$scope.recentMovies		=	{};
+		$scope.$watch(function() {
+			$scope.moviesDataModel	=	movieResultsService.movieResults;
+		});
+		$scope.showMovieDetails=function(id){
+			$scope.showDetails	=	true;
+			//Make Call to TMDB based on ID:
+			$http.get('http://api.themoviedb.org/3/movie/'+id+'?api_key='+movieConfigFactory.api_key+'&randm='+Math.random())
+			.success(function(response) {
+				console.log(response);
+				$scope.movieDetails=response;
+				//if no backdrop_path then show poster_path else show no image available:
+				$scope.movieDetails.backdrop_path	=	$scope.movieDetails.backdrop_path?$scope.movieDetails.backdrop_path:($scope.movieDetails.poster_path?$scope.movieDetails.poster_path:'images/no_image.jpg')
+			});
+			//movie/{id}/credits----To get the cast information
+			$http.get('http://api.themoviedb.org/3/movie/'+id+'/credits?api_key='+movieConfigFactory.api_key+'&randm='+Math.random())
+			.success(function(response) {
+				$scope.castDetails=response.cast;
+			});
+		}
+	});					
+	app.controller("footerCtrl",function ($scope){
+					
+	});
+	/********************************Services******************************/
+	/**
+	* ng-service :: movieResultsService
+	* This is the movieResultsService (angular.service) to store search results 
+	*/
+	function movieResultsService()
+	{
+       var movieResults = {};
+    //A service/factory can be used without setters and getters, but using setters and getters is a good practise .   
+	}	
+	/**
+	* ng-factory :: movieConfig
+	* This is the movieConfig (angular.factory) to have config data 
+	*/
+	function movieConfigFactory(){
+		var httpProt 		= 	window.location.protocol == 'https:' ? 'https' : 'http';
+		return {
+			 server 		:	httpProt+'://api.themoviedb.org/3/'
+			,api_key		:	'08b9b2257cdb93fc6a09e38654115b8b'
+		}
+	}
+	function makeAjaxCallsFactory(searchTerm, criteria)
+	{
+       var moviesFactory = {};
+	   
+    }	
+	
+	</script>
+	<script src="jscripts/customDirectives.js"></script>
+</body>
+	
+</html>

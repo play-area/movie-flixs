@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Movie FlixS</title>
+<head>
+	<style>
+	html{height:100%;}
+	body{margin:0;padding:0;height:100%;font-family:Lucida Console; color:#eaeaeb ; font-size:2.2vmin }
+	.mainDiv{height:100%;box-sizing: border-box; }
+	
+	.overlay { position:fixed; display:none; background-color: rgba(0, 0, 0, 0.3); top: 0;left: 0;bottom: 0; right: 0;z-index:21;}
+	/***************************************************************HEADER STYLES*******************************************************************/
+	header {background: #31353d; display:block; height:18%;box-sizing: border-box; }
+	nav{ z-index:10; display:block; height:8%; width:80%;position:absolute;left:10%;top:16.4%;box-sizing: border-box;}
+	nav div.upperBorder{background: #f15f43; height:20%;box-sizing: border-box; }
+	
+	nav div.menuItems{background: #eaeaeb; height:80%;box-sizing: border-box; width:100% }
+	nav div.menuItems>ul{list-style-type:none;padding:0;margin:0;height:100%;width:100%}
+	nav div.menuItems>ul li{display:inline; color:#31353d; padding:0;margin:0;height:100%;border-right: 1px solid #d5d5d6;float:left;width: 19.5%;}
+	nav div.menuItems>ul li:last-child{border:none;}
+	nav div.menuItems>ul li a { color: #31353d;display:block;text-decoration: none; height:73%; text-align: center; text-transform: uppercase;font-weight:bold;padding-top:7%;transition:all 1s ease 0s}
+	nav div.menuItems>ul li a:hover{background: #f15f43; color:#eaeaeb; box-shadow:1px 1px #c53317}
+	
+	header span:last-child{float:right;position:relative;top:20%; height:30%; width:27%}
+	header #logoSpan{position: relative;}
+	header #logoSpan img{height:87%; width:23%;}
+	input#searchBar{/*background: rgba(0, 0, 0, 0) url("images/searchIcon2.png") no-repeat scroll right top / 25% 100%;*/ 
+					background: #3f424a;border: 2px solid #5b5e66;box-shadow: none;box-sizing: border-box;color: white;display: inline-block;height:100%;font-weight:bold; position:absolute;width:88%; border-right:none;transition: all 500ms linear 0s;}
+	input#searchBar:focus {background-color:#dfd3a0; color:#31353d;font-weight:bold;text-transform:uppercase;}
+	input#searchBar:focus +	#searchImg img {background:#dfd3a0;}
+	#searchImg{display:inline-block;position:absolute;right:0; height:100%; width:14%;z-index:5;transition: all 1s ease 0s;}
+	#searchImg img {height:100%; width:100%; box-sizing: border-box; border: 2px solid #5b5e66; border-left:none;transition: all 500ms linear 0s;}
+	#searchImg:hover{ transform: rotateX(360deg); background:#dfd3a0}
+	
+	/***************************************************************BODY STYLES*********************************************************************/
+	section.mainContent{background:#fff3c0; display:block; height:67%;padding:7% 10% 0% 10%;box-sizing: border-box; color: #31353d }
+	#searchResultDiv{height:100%}
+	
+	/***************************************************************FOOTER STYLES*******************************************************************/
+	footer{background: #31353d ; display:block; height:15%; box-sizing: border-box;position: relative; }
+	footer #logoSpan{box-sizing: border-box; display: inline-block; height: 70%; position: relative; width: 18%; z-index: 10;}
+	footer #logoSpan img{height:100%; width:100%; position:absolute}
+	
+	#footerList{box-sizing: border-box; display: inline-block; height: 43%; position: relative; width: 52%;}
+	#footerList> ul{list-style-type:none;padding:0;margin:0;height:100%;width:100%;position: absolute;}
+	#footerList> ul li{display:inline; padding-left:7%;margin:0;height:100%;float:left;}
+	#footerList> ul li a{ display:block;text-decoration: none; text-align: center; text-transform: uppercase;font-weight:bold;color:#5b5e66; transition: all 700ms ease 0s}
+	#footerList> ul li a:hover{color:#f15f43}
+	
+	#socialIcons{box-sizing: border-box; display: inline-block; height: 70%; position: absolute; width: 30%; z-index: 10;right:0}
+	#socialIcons> ul{list-style-type:none;padding:0;margin:0;height:100%;width:100%;position: absolute;}
+	#socialIcons> ul li{display:inline; padding-left:0%;margin:0;height:100%;float:left; width: 25%}
+	#socialIcons> ul li:eq(0) {background:url(images/orangeIcons.jpeg) -110px -21px; width: 44px;height: 44px; }
+	#socialIcons> ul li:eq(1) {background:url(images/orangeIcons.jpeg) -201px -21px; width: 44px;height: 44px; }
+	#socialIcons> ul li:eq(2) {background:url(images/orangeIcons.jpeg) -289px -21px; width: 44px;height: 44px; }
+	#socialIcons> ul li:eq(3){background:url(images/orangeIcons.jpeg) -20px  -98px; width: 44px;height: 44px; }
+	
+	/***************************************************************MEDIA QUERRIES******************************************************************/
+	</style>
+	<script src="jscripts/angular.min.js"></script>
+</head>
+<body	ng-app="mainApp">
+	<div class="overlay" ></div>
+	<div class="mainDiv"	ng-controller="mainCtrl" >
+		<!------------------------------------------------------Header Content------------------------------------------------>
+		<header	ng-controller="headerCtrl">
+			<span id="logoSpan"><img src="images/logoWithText.bmp"></img></span>
+			<span id="searchBar"><input id="searchBar" placeholder="Search a Movie"	ng-model="movieSearch"	ng-keyup="searchMovie($event)"></input>
+								<a href=# id="searchImg"><img src="images/searchIcon2.png"></img></a>
+			</span>
+		</header>
+		<!-----------------------------------------------------Menu Content------------------------------------------------>
+		<nav	ng-controller="navCtrl">
+			<div class="upperBorder">
+			</div>
+			<div class="menuItems">
+				<ul>
+					<li><a href=#>Home</a></li>
+					<li><a href=#>New Releases</a></li>
+					<li><a href=#>Most Popular</a></li>
+					<li><a href=#>Genres</a></li>
+					<li><a href=#>Blog</a></li>
+				</ul>
+			</div>
+		</nav>
+		<!----------------------------------------------------Main Content------------------------------------------------>
+		<section class="mainContent"	ng-controller="contentCtrl">
+			<div id="homePageDiv" style="display:none">
+				Upcoming Movies
+			</div>
+			<div id="searchResultDiv" >
+						<ul>
+							<li ng-repeat="x in moviesDataModel">
+								<a href="#" ng-click="showMovieContent()"><img src={{'http://image.tmdb.org/t/p/w500'+x.poster_path+'?api_key=23afca60ebf72f8d88cdcae2c4f31866'}} style="width: 38px;"></img></a><br>
+								<a href="#" ng-click="showMovieContent()" style="text-decoration: none;color:white">{{x.original_title}}</a>
+							</li>
+						</ul>
+			</div>
+		</section>
+		<!----------------------------------------------------FOOTER SECTION------------------------------------------------>
+		<footer	ng-controller="footerCtrl">
+			<span id="logoSpan"><img src="images/logoWithText.bmp"></img></span>
+			<span id="footerList">	
+				<ul>
+					<li><a href="#">Home</a></li>
+					<li><a href="#">New Releases</a></li>
+					<li><a href="#">Most Popular</a></li>
+					<li><a href="#">Blog</a></li>
+					<li><a href="#">Contact us</a></li>
+				</ul>
+			</span>
+			<span id="socialIcons">
+				<ul>
+					<li><span ></span></li>
+					<li><span ></span></li>
+					<li><span ></span></li>
+					<li><span ></span></li>
+				</ul>
+			</span>
+		</footer>
+		
+	</div>
+	<!-------------------------------------------------------SCRIPT SECTION------------------------------------------------>
+	<script>
+	var app		=	angular.module("mainApp", []);
+	app.service("movieResultsService", movieResultsService);			
+	app.controller("mainCtrl",function ($scope){
+			});
+				
+	app.controller("headerCtrl",function($scope,$http,movieResultsService){
+		$scope.searchMovie	=	function(keyEvent) {
+			$http.get('https://api.themoviedb.org/3/search/movie?api_key=23afca60ebf72f8d88cdcae2c4f31866&randm='+Math.random()+'&query='+$scope.movieSearch+'&page='+1)
+			.success(function(response) {
+				movieResultsService.movieResults	=	{};
+				movieResultsService.movieResults	=	response;	
+				//console.log(movieResultsService.movieResults.results);
+			});
+			
+		}
+	});
+		
+	app.controller("navCtrl",function ($scope,$http){
+					
+	});
+	app.controller("contentCtrl",function ($scope,movieResultsService){
+		$scope.moviesDataModel = {};
+		$scope.$watch('moviesDataModel', function(movieResultsService) {
+			console.log('MoviesDataModel has changed!');
+			console.log('$scope.moviesDataModel:'+$scope.moviesDataModel);
+		});
+		$scope.moviesDataModel	=	movieResultsService.movieResults;
+		
+	});					
+	app.controller("footerCtrl",function ($scope){
+					
+	});
+	/********************************Services******************************/
+	
+	function movieResultsService()
+	{
+       var movieResults = {};
+        
+	}	
+	
+	</script>
+</body>
+	
+</html>

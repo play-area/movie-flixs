@@ -1,0 +1,10 @@
+<div  class="caraouselContainer" ng-controller="carouselCtrl" ng-init="getRecentMovies()">
+	<div class="caraouselInnerContainer">
+		<div class="carouselImages">
+			<img class="item" ng-repeat="image in images" ng-class="{left: $index < imageid, right: $index > imageid, centered: $index == imageid}" src="{{image}}"/>
+		</div>
+		<div class="dots"><span ng-repeat="image in images" ng-class="{selected: $index == imageid}" /></span></div>
+		<img  class="leftSlider" ng-click="decrementImgId()" src="images/backward.png"></a>
+		<img class="rightSlider" ng-click="incrementImgId()"  src="images/forward.png"></a>
+	</div>
+</div>
